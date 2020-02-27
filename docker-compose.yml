@@ -85,3 +85,8 @@ services:
       - prometheus
     volumes:
       - ./grafana:/usr/share/grafana/conf/provisioning
+
+  ftpserver:
+    image: jdeathe/centos-ssh
+    ports:
+      - "2222:22"

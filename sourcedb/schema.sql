@@ -15,3 +15,15 @@ CREATE TABLE tb_source (
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci;
+
+CREATE PROCEDURE DummyInsert()
+BEGIN
+	DECLARE i INT DEFAULT 1;
+
+	WHILE i <= 100 DO
+
+		INSERT INTO tb_source (col1,col2,col3,col4,col5,col6,col7,col8) VALUES ('a','b','c','d','e','f','g','h');
+		SET i = i + 1;
+	
+	END WHILE;
+END;
