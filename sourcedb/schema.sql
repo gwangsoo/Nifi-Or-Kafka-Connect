@@ -16,6 +16,7 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci;
 
+/*
 CREATE PROCEDURE DummyInsert()
 BEGIN
 	DECLARE i INT DEFAULT 1;
@@ -27,3 +28,4 @@ BEGIN
 	
 	END WHILE;
 END;
+*/
