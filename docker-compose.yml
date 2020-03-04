@@ -2,8 +2,8 @@ version: '3'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
-    ports:
-      - 2181:2181
+    volumes:
+      - ./zookeeper:/opt/zookeeper-3.4.13/data
 
   kafka1:
     image: wurstmeister/kafka
@@ -131,3 +131,5 @@ services:
   kafka-worker:
     build: ./kafka-worker
     command: bash -c "sleep infinity"
+    volumes:
+      - ./kafka-script:/kafka-script
