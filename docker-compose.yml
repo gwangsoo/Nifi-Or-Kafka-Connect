@@ -57,7 +57,7 @@ services:
       - ./kafka/kafka-logs3:/kafka/kafka-logs
 
   kafka-manager:
-    image: kafka-manager
+    build: ./kafka-manager
     ports:
       - 9000:9000
     depends_on:
