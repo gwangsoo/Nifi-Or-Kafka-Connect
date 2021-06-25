@@ -1,0 +1,220 @@
+application {
+  config {
+    baseName cafeApp
+    applicationType microservice
+    serverPort 9001
+  }
+
+  entities *
+
+  dto * with mapstruct
+}
+
+application {
+  config {
+    baseName gatewayApp
+    applicationType gateway
+    serverPort 9000
+  }
+  
+  entities CafeUser
+}
+
+// 속성 template
+enum AttributeType {
+	PICK, COUNT
+}
+
+entity Template {
+	name String
+    engName String
+    attributeType AttributeType
+    minCount Integer
+    maxCount Integer
+    defaultCount Integer
+}
+
+entity TemplateItem {
+	name String
+    engName String
+}
+
+// 상품
+entity Attribute {
+	name String
+    engName String
+    attributeType AttributeType
+    minCount Integer
+    maxCount Integer
+    defaultCount Integer
+    price Double
+}
+
+entity AttributeItem {
+	name String
+    engName String
+}
+
+enum ChoiceType {
+	SINGLE, MULTI
+}
+
+enum OptionType {
+	BASIC, ADDITIONAL
+}
+
+enum RequiredType {
+	REQUIRED, OPTIONAL
+}
+
+entity ProductItem {
+	name String
+    engName String
+    optionType OptionType
+    choiceType ChoiceType
+    requiredType RequiredType
+}
+
+// CAFE, RESTAURANT, PUB, BENDING, ...
+entity ProductType {
+	name String
+    engName String
+    code String
+}
+
+entity Product {
+	name String
+    engName String
+    price Double
+}
+
+// 사용자
+entity CafeUser {
+	id String
+    name String
+    password String
+}
+
+// 주문
+enum OrderStatus {
+	PREPARED, CANCELED, APPLIED
+}
+
+entity Order {
+	orderDate LocalDate
+	price Double
+    orderStatus OrderStatus
+}
+
+entity OrderItem {
+	count Integer
+	price Double
+}
+
+entity OrderItemOption {
+	count Integer
+}
+
+// 평가
+entity FeedBack {
+	score Integer
+    comment String
+}
+
+// 매장
+enum StoreType {
+	DT, WT, NIGHT, DL
+}
+
+entity StoreService {
+	storeType StoreType
+}
+
+entity Store {
+	name String
+    addr String
+    tel String
+    parking String
+    wayToCome String
+    description String
+}
+
+// 운영시간
+entity OpTime {
+	openTime String
+    closeTime String
+}
+
+// 재고
+entity Stock {
+	cnt Long
+}
+
+// 프리퀀시
+
+// e-sticker
+
+// 리워드
+
+// 쿠폰 (영수증 또는 MMS 등으로 번호가 뿌려지는 것)
+
+// 기프트 (사용자 간 선물을 보내고 받는 것)
+
+// 고객의 소리
+
+// 알림
+
+// 결제
+
+// 드라이브스루 매장의 경우 차량번호 및 자동결제 카드 등록
+
+// 임직원 (할인 정책)
+
+// 정책(페널티)
+
+// file
+entity File {
+	name String
+    orgName String
+    fileSize Long
+    mimeType String
+    md5 String
+}
+
+relationship OneToMany {
+	Template to TemplateItem
+
+	Attribute to AttributeItem
+	Product to ProductItem
+    Product to File
+
+    CafeUser to Order
+    CafeUser to FeedBack
+    Order to OrderItem
+    OrderItem to OrderItemOption
+    
+    Store to OpTime
+    Store to Stock
+    Store to File
+}
+
+relationship ManyToMany {
+	ProductItem to Attribute
+    OrderItem to Product
+    OrderItemOption to AttributeItem
+    
+    Store to Product
+    Store to StoreService
+}
+
+relationship ManyToOne {
+	Attribute to Template
+	Product to ProductType
+    
+    Order to Store
+    Stock to Product
+}
+
+relationship OneToOne {
+    FeedBack to OrderItem
+}
